@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "mir4s50Frqx6Dg1WOJQX2ShTxjf9Jy+IqnmujfdN2tMQ8LpCENoumNKFKIwcHeRk2KzC8Rx08uCNY9rX22DNLg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pc\\source\\repos\\CourseWork\\CourseWork\\CourseWork.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pc\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
