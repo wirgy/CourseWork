@@ -10,6 +10,8 @@ namespace CourseWork
     class Emitter
     {
         List<Particle> particles = new List<Particle>();
+        public List<Point> gravityPoints = new List<Point>();
+
         public int MousePositionX;
         public int MousePositionY;
 
@@ -40,7 +42,18 @@ namespace CourseWork
                 }
                 else
                 {
-                    // гравитация воздействует на вектор скорости, поэтому пересчитываем его
+                    // каждая точка по-своему воздействует на вектор скорости
+                    foreach (var point in gravityPoints)
+                    {
+                        float gX = point.X - particle.X;
+                        float gY = point.Y - particle.Y;
+                        float r2 = gX * gX + gY * gY;
+                        float M = 100;
+
+                        particle.SpeedX += (gX) * M / r2;
+                        particle.SpeedY += (gY) * M / r2;
+                    }
+
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
 
@@ -75,6 +88,17 @@ namespace CourseWork
             foreach (var particle in particles)
             {
                 particle.Draw(g);
+            }
+            // рисую точки притяжения красными кружочками
+            foreach (var point in gravityPoints)
+            {
+                g.FillEllipse(
+                    new SolidBrush(Color.Red),
+                    point.X - 5,
+                    point.Y - 5,
+                    10,
+                    10
+                );
             }
         }
     }

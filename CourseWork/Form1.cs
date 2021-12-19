@@ -13,7 +13,7 @@ namespace CourseWork
     public partial class Form1 : Form
     {
 
-        List<Particle> particles = new List<Particle>();
+       
 
         Emitter emitter = new Emitter(); // добавили эмиттер
         public Form1()
@@ -22,6 +22,18 @@ namespace CourseWork
 
             // привязал изображение
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
+
+            // добавил точечку
+            emitter.gravityPoints.Add(new Point(picDisplay.Width / 2, picDisplay.Height / 2));
+            // добавил еще две        
+            emitter.gravityPoints.Add(new Point(
+              (int)(picDisplay.Width * 0.75), picDisplay.Height / 2
+           ));
+
+            emitter.gravityPoints.Add(new Point(
+               (int)(picDisplay.Width * 0.25), picDisplay.Height / 2
+           ));
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -44,13 +56,16 @@ namespace CourseWork
             picDisplay.Invalidate();
         }
 
-        private int MousePositionX = 0;
-        private int MousePositionY = 0;
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
             // в обработчике заносим положение мыши в переменные для хранения положения мыши
             emitter.MousePositionX = e.X;
             emitter.MousePositionY = e.Y;
+        }
+
+        private void picDisplay_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
