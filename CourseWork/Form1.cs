@@ -49,9 +49,11 @@ namespace CourseWork
                 {
                     // восстанавливаю здоровье
                     particle.Life = 20 + Particle.rand.Next(100);
-                    // перемещаю частицу в центр
+                    particle.X = MousePositionX;
+                    particle.Y = MousePositionY;
+                  /*  // перемещаю частицу в центр
                     particle.X = picDisplay.Image.Width / 2;
-                    particle.Y = picDisplay.Image.Height / 2;
+                    particle.Y = picDisplay.Image.Height / 2;*/
                     // делаю рандомное направление, скорость и размер
                     particle.Direction = Particle.rand.Next(360);
                     particle.Speed = 1 + Particle.rand.Next(10);
@@ -89,6 +91,15 @@ namespace CourseWork
             }
 
             picDisplay.Invalidate();
+        }
+
+        private int MousePositionX = 0;
+        private int MousePositionY = 0;
+        private void picDisplay_MouseMove(object sender, MouseEventArgs e)
+        {
+            // в обработчике заносим положение мыши в переменные для хранения положения мыши
+            MousePositionX = e.X;
+            MousePositionY = e.Y;
         }
     }
 }
