@@ -20,8 +20,6 @@ namespace CourseWork
 
             // привязал изображение
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-
-           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -60,9 +58,13 @@ namespace CourseWork
             }
             for (var i = 0; i < 10; ++i)
             {
-                if (particles.Count < 500) // пока частиц меньше 500 генерируем новые
+                if (particles.Count < 500)
                 {
-                    var particle = new Particle();
+                    // а у тут уже наш новый класс используем
+                    var particle = new ParticleColorful();
+                    // ну и цвета меняем
+                    particle.FromColor = Color.Yellow;
+                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
                     particle.X = MousePositionX;
                     particle.Y = MousePositionY;
                     particles.Add(particle);
@@ -87,12 +89,12 @@ namespace CourseWork
         // ну и обработка тика таймера, тут просто декомпозицию выполнили
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdateState(); // каждый тик обновляем систему
+            UpdateState();
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
-                g.Clear(Color.White);
-                Render(g); // рендерим систему
+                g.Clear(Color.Black); // А ЕЩЕ ЧЕРНЫЙ ФОН СДЕЛАЮ
+                Render(g);
             }
 
             picDisplay.Invalidate();
