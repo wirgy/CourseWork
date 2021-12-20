@@ -31,6 +31,8 @@ namespace CourseWork
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
 
+        public int ParticlesPerTick = 1;
+
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
@@ -45,13 +47,21 @@ namespace CourseWork
 
         public void UpdateState()
         {
+            int particlesToCreate = ParticlesPerTick; // фиксируем счетчик сколько частиц нам создавать за тик
             foreach (var particle in particles)
             {
-                particle.Life -= 1; // уменьшаю здоровье
-                                    // если здоровье кончилось
-                if (particle.Life < 0)
+             
+                if (particle.Life <= 0) // если частицы умерла
                 {
-                    ResetParticle(particle);
+                    /* 
+                     * то проверяем надо ли создать частицу
+                     */
+                    if (particlesToCreate > 0)
+                    {
+                        /* у нас как сброс частицы равносилен созданию частицы */
+                        particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
+                        ResetParticle(particle);
+                    }
                 }
                 else
                 {
@@ -67,18 +77,12 @@ namespace CourseWork
                     particle.Y += particle.SpeedY;
                 }
             }
-            for (var i = 0; i < 10; ++i)
+            while (particlesToCreate >= 1)
             {
-                if (particles.Count < ParticlesCount)
-                {
-                    var particle = CreateParticle(); // и собственно теперь тут его вызываем
-                    ResetParticle(particle);
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break; // а если частиц уже 500 штук, то ничего не генерирую
-                }
+                particlesToCreate -= 1;
+                var particle = CreateParticle();
+                ResetParticle(particle);
+                particles.Add(particle);
             }
         }
 
