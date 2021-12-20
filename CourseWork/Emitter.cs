@@ -10,7 +10,7 @@ namespace CourseWork
     class Emitter
     {
         List<Particle> particles = new List<Particle>();
-        public List<Point> gravityPoints = new List<Point>();
+        public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
 
         public int MousePositionX;
         public int MousePositionY;
@@ -42,16 +42,9 @@ namespace CourseWork
                 }
                 else
                 {
-                    // каждая точка по-своему воздействует на вектор скорости
-                    foreach (var point in gravityPoints)
+                    foreach (var point in impactPoints)
                     {
-                        float gX = point.X - particle.X;
-                        float gY = point.Y - particle.Y;
-                        float r2 = gX * gX + gY * gY;
-                        float M = 100;
-
-                        particle.SpeedX += (gX) * M / r2;
-                        particle.SpeedY += (gY) * M / r2;
+                        point.ImpactParticle(particle);
                     }
 
                     particle.SpeedX += GravitationX;
@@ -90,15 +83,9 @@ namespace CourseWork
                 particle.Draw(g);
             }
             // рисую точки притяжения красными кружочками
-            foreach (var point in gravityPoints)
+            foreach (var point in impactPoints)
             {
-                g.FillEllipse(
-                    new SolidBrush(Color.Red),
-                    point.X - 5,
-                    point.Y - 5,
-                    10,
-                    10
-                );
+                point.Render(g);
             }
         }
     }
