@@ -14,6 +14,9 @@ namespace CourseWork
     {
         List<Emitter> emitters = new List<Emitter>();
         Emitter emitter; // добавили эмиттер
+
+        GravityPoint point1; // добавил поле под первую точку
+        GravityPoint point2; // добавил поле под вторую точку
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +35,22 @@ namespace CourseWork
                 Y = picDisplay.Height / 2,
             };
             emitters.Add(this.emitter);
+
+            // привязываем гравитоны к полям
+            point1 = new GravityPoint
+            {
+                X = picDisplay.Width / 2 + 100,
+                Y = picDisplay.Height / 2,
+            };
+            point2 = new GravityPoint
+            {
+                X = picDisplay.Width / 2 - 100,
+                Y = picDisplay.Height / 2,
+            };
+
+            // привязываем поля к эмиттеру
+            emitter.impactPoints.Add(point1);
+            emitter.impactPoints.Add(point2);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -75,6 +94,16 @@ namespace CourseWork
         {
             emitter.Spreading = tbSpreading.Value;
             lblSpreading.Text = $"{tbSpreading.Value}°";
+        }
+
+        private void tbGraviton_Scroll(object sender, EventArgs e)
+        {
+            point1.Power = tbGraviton.Value;
+        }
+
+        private void tbGraviton2_Scroll(object sender, EventArgs e)
+        {
+            point2.Power = tbGraviton2.Value;
         }
     }
 }

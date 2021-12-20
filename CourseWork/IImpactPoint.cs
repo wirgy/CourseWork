@@ -18,7 +18,7 @@ namespace CourseWork
         public abstract void ImpactParticle(Particle particle);
 
         // базовый класс для отрисовки точечки
-        public void Render(Graphics g)
+        public virtual void Render(Graphics g)
         {
             g.FillEllipse(
                     new SolidBrush(Color.Red),
@@ -42,6 +42,18 @@ namespace CourseWork
 
             particle.SpeedX += gX * Power / r2;
             particle.SpeedY += gY * Power / r2;
+        }
+
+        public override void Render(Graphics g)
+        {
+            // буду рисовать окружность с диаметром равным Power
+            g.DrawEllipse(
+                   new Pen(Color.Red),
+                   X - Power / 2,
+                   Y - Power / 2,
+                   Power,
+                   Power
+               );
         }
     }
     public class AntiGravityPoint : IImpactPoint

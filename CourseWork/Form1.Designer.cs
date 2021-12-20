@@ -38,9 +38,13 @@ namespace CourseWork
             this.tbSpreading = new System.Windows.Forms.TrackBar();
             this.lblSpreading = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.tbGraviton = new System.Windows.Forms.TrackBar();
+            this.tbGraviton2 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSpreading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGraviton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -113,11 +117,31 @@ namespace CourseWork
             this.label2.TabIndex = 6;
             this.label2.Text = "Разброс";
             // 
+            // tbGraviton
+            // 
+            this.tbGraviton.Location = new System.Drawing.Point(427, 473);
+            this.tbGraviton.Maximum = 100;
+            this.tbGraviton.Name = "tbGraviton";
+            this.tbGraviton.Size = new System.Drawing.Size(104, 45);
+            this.tbGraviton.TabIndex = 7;
+            this.tbGraviton.Scroll += new System.EventHandler(this.tbGraviton_Scroll);
+            // 
+            // tbGraviton2
+            // 
+            this.tbGraviton2.Location = new System.Drawing.Point(572, 473);
+            this.tbGraviton2.Maximum = 100;
+            this.tbGraviton2.Name = "tbGraviton2";
+            this.tbGraviton2.Size = new System.Drawing.Size(104, 45);
+            this.tbGraviton2.TabIndex = 8;
+            this.tbGraviton2.Scroll += new System.EventHandler(this.tbGraviton2_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 543);
+            this.Controls.Add(this.tbGraviton2);
+            this.Controls.Add(this.tbGraviton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblSpreading);
             this.Controls.Add(this.tbSpreading);
@@ -131,6 +155,8 @@ namespace CourseWork
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSpreading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGraviton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,6 +172,8 @@ namespace CourseWork
         private System.Windows.Forms.TrackBar tbSpreading;
         private System.Windows.Forms.Label lblSpreading;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TrackBar tbGraviton;
+        private System.Windows.Forms.TrackBar tbGraviton2;
     }
 }
 
