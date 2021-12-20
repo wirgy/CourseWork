@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace CourseWork
 {
-    class Emitter
+    public class Emitter
     {
         List<Particle> particles = new List<Particle>();
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
@@ -25,20 +25,7 @@ namespace CourseWork
                                     // если здоровье кончилось
                 if (particle.Life < 0)
                 {
-                    // восстанавливаю здоровье
-                    particle.Life = 20 + Particle.rand.Next(100);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
-                    /*  // перемещаю частицу в центр
-                      particle.X = picDisplay.Image.Width / 2;
-                      particle.Y = picDisplay.Image.Height / 2;*/
-                    // делаю рандомное направление, скорость и размер
-                    var direction = (double)Particle.rand.Next(360);
-                    var speed = 1 + Particle.rand.Next(10);
-
-                    particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-                    particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-                    particle.Radius = 2 + Particle.rand.Next(10);
+                    ResetParticle(particle);
                 }
                 else
                 {
@@ -58,13 +45,12 @@ namespace CourseWork
             {
                 if (particles.Count < 500)
                 {
-                    // а у тут уже наш новый класс используем
                     var particle = new ParticleColorful();
-                    // ну и цвета меняем
-                    particle.FromColor = Color.Yellow;
-                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
+                    particle.FromColor = Color.White;
+                    particle.ToColor = Color.FromArgb(0, Color.Black);
+
+                    ResetParticle(particle); // добавили вызов ResetParticle
+
                     particles.Add(particle);
                 }
                 else
@@ -87,6 +73,36 @@ namespace CourseWork
             {
                 point.Render(g);
             }
+        }
+        public virtual void ResetParticle(Particle particle)
+        {
+            particle.Life = 20 + Particle.rand.Next(100);
+            particle.X = MousePositionX;
+            particle.Y = MousePositionY;
+
+            var direction = (double)Particle.rand.Next(360);
+            var speed = 1 + Particle.rand.Next(10);
+
+            particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+            particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
+
+            particle.Radius = 2 + Particle.rand.Next(10);
+        }
+    }
+    public class TopEmitter : Emitter
+    {
+        public int Width; // длина экрана
+
+        public override void ResetParticle(Particle particle)
+        {
+            base.ResetParticle(particle); // вызываем базовый сброс частицы, там жизнь переопределяется и все такое
+
+            // а теперь тут уже подкручиваем параметры движения
+            particle.X = Particle.rand.Next(Width); // позиция X -- произвольная точка от 0 до Width
+            particle.Y = 0;  // ноль -- это верх экрана 
+
+            particle.SpeedY = 1; // падаем вниз по умолчанию
+            particle.SpeedX = Particle.rand.Next(-2, 2); // разброс влево и вправа у частиц 
         }
     }
 }
