@@ -68,8 +68,8 @@ namespace CourseWork
                         point.ImpactParticle(particle);
                     }
 
-                    particle.SpeedX += GravitationX;
-                    particle.SpeedY += GravitationY;
+                   particle.SpeedX += GravitationX;
+                   particle.SpeedY += GravitationY;
 
                 }
             }
@@ -84,8 +84,6 @@ namespace CourseWork
 
         public void Render(Graphics g)
         {
-            // ну тут так и быть уж сам впишу...
-            // это то же самое что на форме в методе Render
             foreach (var particle in particles)
             {
                 particle.Draw(g);
