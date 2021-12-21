@@ -18,8 +18,6 @@ namespace CourseWork
         public float GravitationX = 0;
         public float GravitationY = 1;
 
-        public int ParticlesCount = 500;
-
         public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
         public int Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
@@ -53,18 +51,18 @@ namespace CourseWork
              
                 if (particle.Life <= 0) // если частицы умерла
                 {
-                    /* 
-                     * то проверяем надо ли создать частицу
-                     */
                     if (particlesToCreate > 0)
                     {
-                        /* у нас как сброс частицы равносилен созданию частицы */
-                        particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
+                        particlesToCreate -= 1; 
                         ResetParticle(particle);
                     }
                 }
                 else
                 {
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
+
+                    particle.Life -= 1;
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
@@ -73,8 +71,6 @@ namespace CourseWork
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
 
-                    particle.X += particle.SpeedX;
-                    particle.Y += particle.SpeedY;
                 }
             }
             while (particlesToCreate >= 1)
@@ -103,6 +99,8 @@ namespace CourseWork
 
         public virtual void ResetParticle(Particle particle)
         {
+            var partColor = particle as ParticleColorful;
+            partColor.FromColor = Color.White;
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
 
             particle.X = X;
@@ -126,9 +124,8 @@ namespace CourseWork
 
         public override void ResetParticle(Particle particle)
         {
-            base.ResetParticle(particle); // вызываем базовый сброс частицы, там жизнь переопределяется и все такое
+            base.ResetParticle(particle); 
 
-            // а теперь тут уже подкручиваем параметры движения
             particle.X = Particle.rand.Next(Width); // позиция X -- произвольная точка от 0 до Width
             particle.Y = 0;  // ноль -- это верх экрана 
 

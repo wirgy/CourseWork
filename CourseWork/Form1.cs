@@ -13,10 +13,14 @@ namespace CourseWork
     public partial class Form1 : Form
     {
         List<Emitter> emitters = new List<Emitter>();
-        Emitter emitter; // добавили эмиттер
-
-        GravityPoint point1; // добавил поле под первую точку
-        GravityPoint point2; // добавил поле под вторую точку
+        Emitter emitter;
+        GravityPoint point;
+        
+        PointBlue pointBlue; 
+        PointRed pointRed;
+        PointGreen pointGreen;
+        PointYellow pointYellow;
+        PointPurple pointPurple;
         public Form1()
         {
             InitializeComponent();
@@ -24,33 +28,27 @@ namespace CourseWork
 
             this.emitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
-                Direction = 0,
-                Spreading = 10,
+                Direction = 200,
+                Spreading = 350,
                 SpeedMin = 10,
                 SpeedMax = 10,
-                ColorFrom = Color.Gold,
-                ColorTo = Color.FromArgb(0, Color.Red),
                 ParticlesPerTick = 10,
                 X = picDisplay.Width / 2,
-                Y = picDisplay.Height / 2,
+                Y = picDisplay.Height / 2 - 200,
             };
             emitters.Add(this.emitter);
 
-            // привязываем гравитоны к полям
-            point1 = new GravityPoint
-            {
-                X = picDisplay.Width / 2 + 100,
-                Y = picDisplay.Height / 2,
-            };
-            point2 = new GravityPoint
-            {
-                X = picDisplay.Width / 2 - 100,
-                Y = picDisplay.Height / 2,
-            };
-
+            pointBlue = new PointBlue{  X = picDisplay.Width / 2 - 110, Y = picDisplay.Height / 2, };
+            pointRed = new PointRed { X = picDisplay.Width / 2, Y = picDisplay.Height / 2, };
+            pointGreen = new PointGreen { X = picDisplay.Width / 2 + 110, Y = picDisplay.Height / 2, };
+            pointYellow = new PointYellow { X = picDisplay.Width / 2 + 220, Y = picDisplay.Height / 2, };
+            pointPurple = new PointPurple { X = picDisplay.Width / 2 - 220, Y = picDisplay.Height / 2, };
             // привязываем поля к эмиттеру
-            emitter.impactPoints.Add(point1);
-            emitter.impactPoints.Add(point2);
+            emitter.impactPoints.Add(pointBlue);
+            emitter.impactPoints.Add(pointRed);
+            emitter.impactPoints.Add(pointGreen);
+            emitter.impactPoints.Add(pointYellow);
+            emitter.impactPoints.Add(pointPurple);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -65,7 +63,7 @@ namespace CourseWork
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
-                g.Clear(Color.Black); // А ЕЩЕ ЧЕРНЫЙ ФОН СДЕЛАЮ
+                g.Clear(Color.Black); //ФОН 
                 emitter.Render(g);
             }
 
@@ -74,41 +72,76 @@ namespace CourseWork
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            foreach (var emitter in emitters)
-            {
-                emitter.MousePositionX = e.X;
-                emitter.MousePositionY = e.Y;
-            }
-
-            point2.X = e.X;
-            point2.Y = e.Y;
+           
         }
 
         private void picDisplay_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void tbDirection_Scroll(object sender, EventArgs e)
         {
-            emitter.Direction = tbDirection.Value; // направлению эмиттера присваиваем значение ползунка 
-            lblDirection.Text = $"{tbDirection.Value}°"; // добавил вывод значения
+            emitter.Direction = tbDirection.Value; 
+            lblDirection.Text = $"{tbDirection.Value}°"; 
         }
 
         private void tbSpreading_Scroll(object sender, EventArgs e)
         {
             emitter.Spreading = tbSpreading.Value;
             lblSpreading.Text = $"{tbSpreading.Value}°";
+        }   
+
+        private void picDisplay_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                point = new GravityPoint
+                {
+                    X = e.X,
+                    Y = e.Y,
+                };
+                emitter.impactPoints.Add(point);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (emitter.impactPoints.Count > 0)
+                {
+                    emitter.impactPoints.RemoveAt(emitter.impactPoints.Count - 1);
+                }
+            }
         }
 
-        private void tbGraviton_Scroll(object sender, EventArgs e)
+        private void picDisplay_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            point1.Power = tbGraviton.Value;
+
         }
 
-        private void tbGraviton2_Scroll(object sender, EventArgs e)
+        private void tbSizePoint_Scroll(object sender, EventArgs e)
         {
-            point2.Power = tbGraviton2.Value;
+            pointRed.Power = tbSizePoint.Value;
+            pointBlue.Power = tbSizePoint.Value;
+            pointGreen.Power = tbSizePoint.Value;
+            pointYellow.Power = tbSizePoint.Value;
+            pointPurple.Power = tbSizePoint.Value;
+            lblSizePoint.Text = $"{tbSizePoint.Value}";
+        }
+
+        private void tbEmitterX_Scroll(object sender, EventArgs e)
+        {
+            emitter.X = tbEmitterX.Value;
+            lblEmitterX.Text = $"{tbEmitterX.Value}";
+        }
+
+        private void tbEmitterY_Scroll(object sender, EventArgs e)
+        {
+            emitter.Y = tbEmitterY.Value;
+            lblEmitterY.Text = $"{tbEmitterY.Value}";
+        }
+
+        private void lblEmitterX_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
