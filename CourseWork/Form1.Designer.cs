@@ -94,11 +94,11 @@ namespace CourseWork
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(41, 455);
+            this.label1.Location = new System.Drawing.Point(32, 454);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 15);
+            this.label1.Size = new System.Drawing.Size(122, 15);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Направление";
+            this.label1.Text = "Направление частиц";
             // 
             // tbSpreading
             // 
@@ -121,11 +121,11 @@ namespace CourseWork
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(189, 454);
+            this.label2.Location = new System.Drawing.Point(178, 454);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.Size = new System.Drawing.Size(93, 15);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Разброс";
+            this.label2.Text = "Разброс частиц";
             // 
             // tbSizePoint
             // 
@@ -233,7 +233,7 @@ namespace CourseWork
             this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.picDisplay);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Частицы";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
